@@ -1,0 +1,30 @@
+// Decision Tree
+digraph {
+	5302677664 [label="Is h_w_ratio == 1.0"]
+	5301546144 [label="Is parallel_sides_counter >= 12"]
+	5302677664 -> 5301546144 [label=True]
+	4371648464 [label="circle
+100%"]
+	5301546144 -> 4371648464 [label=True]
+	4964019936 [label="square
+100%"]
+	5301546144 -> 4964019936 [label=False]
+	5302677568 [label="Is parallel_sides_counter >= 16"]
+	5302677664 -> 5302677568 [label=False]
+	5301545952 [label="elipse
+100%"]
+	5302677568 -> 5301545952 [label=True]
+	5301546960 [label="Is corners_count >= 4"]
+	5302677568 -> 5301546960 [label=False]
+	5301546720 [label="Is h_w_ratio == 1.5"]
+	5301546960 -> 5301546720 [label=True]
+	5301546096 [label="rhombus
+100%"]
+	5301546720 -> 5301546096 [label=True]
+	5301546432 [label="rectangle
+100%"]
+	5301546720 -> 5301546432 [label=False]
+	5301546912 [label="triangle
+100%"]
+	5301546960 -> 5301546912 [label=False]
+}
