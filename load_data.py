@@ -3,11 +3,12 @@ import re
 import cv2
 from helpers import angle, build_vector
 
-HEADERS = ["corners_count", "right_angle_counter", "parallel_sides_counter", "h_w_ratio", "file_name", "label"]
+HEADERS = ["corners_count", "right_angle_counter", "parallel_sides_counter", "h_w_ratio", "file_path", "label"]
 
 def load_properties_list(image_path):
     """Load properties of a shape from a jpg path."""
-    file_name = image_path.split('/')[-1]
+    file_path = image_path
+    file_name = file_path.split('/')[-1]
     label = re.sub(r'\d', '', file_name)[:-4]
 
     img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
@@ -28,7 +29,7 @@ def load_properties_list(image_path):
     hight, width = max(corners, key=lambda c: c[0][1])[0][1] - min(corners, key=lambda c: c[0][1])[0][1], max(corners, key=lambda c: c[0][0])[0][0] - min(corners, key=lambda c: c[0][0])[0][0]
     h_w_ratio = round(hight/width, 1)
 
-    return [corners_count, right_angle_counter, parallel_sides_counter, h_w_ratio, file_name, label]
+    return [corners_count, right_angle_counter, parallel_sides_counter, h_w_ratio, file_path, label]
 
 def load_training_data_list(jpg_path_list):
     """Load training data from a list of jpg paths."""

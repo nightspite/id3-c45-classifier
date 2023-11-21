@@ -1,30 +1,30 @@
 // Decision Tree
 digraph {
-	5302677664 [label="Is h_w_ratio == 1.0"]
-	5301546144 [label="Is parallel_sides_counter >= 12"]
-	5302677664 -> 5301546144 [label=True]
-	4371648464 [label="circle
+	4780708768 [label="Is h_w_ratio == 1.0"]
+	4780658592 [label="Is parallel_sides_counter >= 12"]
+	4780708768 -> 4780658592 [label=True]
+	4301766608 [label="circle
 100%"]
-	5301546144 -> 4371648464 [label=True]
-	4964019936 [label="square
+	4780658592 -> 4301766608 [label=True]
+	4301766512 [label="square
 100%"]
-	5301546144 -> 4964019936 [label=False]
-	5302677568 [label="Is parallel_sides_counter >= 16"]
-	5302677664 -> 5302677568 [label=False]
-	5301545952 [label="elipse
+	4780658592 -> 4301766512 [label=False]
+	4780708864 [label="Is parallel_sides_counter >= 16"]
+	4780708768 -> 4780708864 [label=False]
+	4780707904 [label="elipse
 100%"]
-	5302677568 -> 5301545952 [label=True]
-	5301546960 [label="Is corners_count >= 4"]
-	5302677568 -> 5301546960 [label=False]
-	5301546720 [label="Is h_w_ratio == 1.5"]
-	5301546960 -> 5301546720 [label=True]
-	5301546096 [label="rhombus
+	4780708864 -> 4780707904 [label=True]
+	4780708720 [label="Is corners_count >= 4"]
+	4780708864 -> 4780708720 [label=False]
+	4780708480 [label="Is h_w_ratio == 1.5"]
+	4780708720 -> 4780708480 [label=True]
+	4780707952 [label="rhombus
 100%"]
-	5301546720 -> 5301546096 [label=True]
-	5301546432 [label="rectangle
+	4780708480 -> 4780707952 [label=True]
+	4780708192 [label="rectangle
 100%"]
-	5301546720 -> 5301546432 [label=False]
-	5301546912 [label="triangle
+	4780708480 -> 4780708192 [label=False]
+	4780708672 [label="triangle
 100%"]
-	5301546960 -> 5301546912 [label=False]
+	4780708720 -> 4780708672 [label=False]
 }

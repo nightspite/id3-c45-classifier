@@ -1,7 +1,7 @@
 """Decision Tree Helpers."""
 import math
 import graphviz
-from colorama import Style
+from colorama import Style, Fore
 from helpers import is_numeric
 from load_data import HEADERS
 
@@ -147,4 +147,7 @@ def draw_tree(node, dot=None, parent=None, edge_label=None):
 
 def export_tree(dot):
     """Exports the tree to a png file."""
-    dot.render('output/tree', view=True, format='png')
+    dot.render('output/tree', format='png')
+    print(f"{Style.BRIGHT}{Fore.GREEN}!!! Tree exported to output/tree.png !!!{Style.RESET_ALL}")
+    print(f"{Style.BRIGHT}{Fore.GREEN}!!! Tree exported to output/tree.png !!!{Style.RESET_ALL}")
+    print(f"{Style.BRIGHT}{Fore.GREEN}!!! Tree exported to output/tree.png !!!{Style.RESET_ALL}")
