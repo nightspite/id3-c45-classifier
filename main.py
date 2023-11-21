@@ -50,7 +50,15 @@ if __name__ == '__main__':
         print_input_data_element(training_data_element)
         print()
 
-    my_tree = build_tree(training_data)
+
+    print('Do you want to use Information Gain Ratio instead of Information Gain? (y/n)')
+    answer = input()
+    if answer == 'y':
+        print('Using Information Gain Ratio.')
+        my_tree = build_tree(training_data, True)
+    else:
+        print('Using Information Gain.')
+        my_tree = build_tree(training_data, False)
 
     print_tree(my_tree)
     tree_drawing = draw_tree(my_tree)

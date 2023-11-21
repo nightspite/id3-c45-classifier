@@ -75,8 +75,20 @@ def info_gain(left, right, current_uncertainty):
     p = float(len(left)) / (len(left) + len(right))
     return current_uncertainty - p * entropy(left) - (1 - p) * entropy(right)
 
-def find_best_split(rows):
-    """Find the best question to ask by iterating over every feature / value and calculate the information gain."""
+def info_gain_ratio(left, right, current_uncertainty):
+    """Returns Information Gain Ratio."""
+    p = float(len(left)) / (len(left) + len(right))
+    return (current_uncertainty - p * entropy(left) - (1 - p) * entropy(right)) / intrinsic_value(left, right)
+
+def intrinsic_value(left, right):
+    """Returns the intrinsic value."""
+    total = len(left) + len(right)
+    p_left = len(left) / total
+    p_right = len(right) / total
+    return -(p_left * math.log(p_left, 2) + p_right * math.log(p_right, 2))
+
+def find_best_split(rows, igr):
+    """Find the best question to ask by iterating over every feature / value and calculate the information gain or information gain ratio."""
     best_gain = 0
     best_question = None
     current_uncertainty = entropy(rows)
@@ -87,19 +99,22 @@ def find_best_split(rows):
             true_rows, false_rows = partition(rows, question)
             if len(true_rows) == 0 or len(false_rows) == 0:
                 continue
-            gain = info_gain(true_rows, false_rows, current_uncertainty)
+            if igr:
+                gain = info_gain_ratio(true_rows, false_rows, current_uncertainty)
+            else:
+                gain = info_gain(true_rows, false_rows, current_uncertainty)
             if gain >= best_gain:
                 best_gain, best_question = gain, question
     return best_gain, best_question
 
-def build_tree(rows):
+def build_tree(rows, igr):
     """Builds the tree."""
-    gain, question = find_best_split(rows)
+    gain, question = find_best_split(rows, igr)
     if gain == 0:
         return Leaf(rows)
     true_rows, false_rows = partition(rows, question)
-    true_branch = build_tree(true_rows)
-    false_branch = build_tree(false_rows)
+    true_branch = build_tree(true_rows, igr)
+    false_branch = build_tree(false_rows, igr)
 
     return DecisionNode(question, true_branch, false_branch)
 
