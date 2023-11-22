@@ -87,7 +87,7 @@ def intrinsic_value(left, right):
     p_right = len(right) / total
     return -(p_left * math.log(p_left, 2) + p_right * math.log(p_right, 2))
 
-def find_best_split(rows, igr):
+def find_best_split(rows, use_igr):
     """Find the best question to ask by iterating over every feature / value and calculate the information gain or information gain ratio."""
     best_gain = 0
     best_question = None
@@ -99,7 +99,7 @@ def find_best_split(rows, igr):
             true_rows, false_rows = partition(rows, question)
             if len(true_rows) == 0 or len(false_rows) == 0:
                 continue
-            if igr:
+            if use_igr:
                 gain = info_gain_ratio(true_rows, false_rows, current_uncertainty)
             else:
                 gain = info_gain(true_rows, false_rows, current_uncertainty)
@@ -107,14 +107,14 @@ def find_best_split(rows, igr):
                 best_gain, best_question = gain, question
     return best_gain, best_question
 
-def build_tree(rows, igr):
+def build_tree(rows, use_igr):
     """Builds the tree."""
-    gain, question = find_best_split(rows, igr)
+    gain, question = find_best_split(rows, use_igr)
     if gain == 0:
         return Leaf(rows)
     true_rows, false_rows = partition(rows, question)
-    true_branch = build_tree(true_rows, igr)
-    false_branch = build_tree(false_rows, igr)
+    true_branch = build_tree(true_rows, use_igr)
+    false_branch = build_tree(false_rows, use_igr)
 
     return DecisionNode(question, true_branch, false_branch)
 
