@@ -50,14 +50,6 @@ def partition(rows, question):
             false_rows.append(row)
     return true_rows, false_rows
 
-def classify(row, node):
-    """Classifies a row using the tree."""
-    if isinstance(node, Leaf):
-        return node.predictions
-    if node.question.match(row):
-        return classify(row, node.true_branch)
-    return classify(row, node.false_branch)
-
 def entropy(rows):
     """Returns the entropy of the rows."""
     counts = class_counts(rows)
@@ -78,10 +70,10 @@ def info_gain(left, right, current_uncertainty):
 def info_gain_ratio(left, right, current_uncertainty):
     """Returns Information Gain Ratio."""
     p = float(len(left)) / (len(left) + len(right))
-    return (current_uncertainty - p * entropy(left) - (1 - p) * entropy(right)) / intrinsic_value(left, right)
+    return (current_uncertainty - p * entropy(left) - (1 - p) * entropy(right)) / gain_split(left, right)
 
-def intrinsic_value(left, right):
-    """Returns the intrinsic value."""
+def gain_split(left, right):
+    """Returns the gain split."""
     total = len(left) + len(right)
     p_left = len(left) / total
     p_right = len(right) / total
@@ -117,6 +109,14 @@ def build_tree(rows, use_igr):
     false_branch = build_tree(false_rows, use_igr)
 
     return DecisionNode(question, true_branch, false_branch)
+
+def classify(row, node):
+    """Classifies a row using the tree."""
+    if isinstance(node, Leaf):
+        return node.predictions
+    if node.question.match(row):
+        return classify(row, node.true_branch)
+    return classify(row, node.false_branch)
 
 def print_leaf(counts):
     """Prints the predictions at a leaf."""
